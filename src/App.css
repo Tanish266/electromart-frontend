@@ -1,0 +1,347 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* header */
+.headerforlogin {
+  position: none !important;
+}
+.header {
+  position: sticky;
+  top: 0;
+  padding: 5px;
+  background-color: #f5f5f5;
+  z-index: 10;
+  height: 60px;
+}
+
+body {
+  margin: 0;
+}
+.Logo {
+  height: 50px;
+  margin: 0px 0 0 0px;
+}
+.Cart {
+  font-size: 40px;
+  color: grey;
+  height: 50px;
+  width: 70px;
+  /* margin: 5px 0 0 0; */
+}
+.Cart-items {
+  border: 2px double black;
+}
+.Cart-item {
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  border-bottom: 2px double #7b7e82;
+}
+.cart-text {
+  margin-top: 70px;
+  width: 45%;
+}
+.summry {
+  text-align: end;
+}
+.button-cart {
+  border-color: rgb(43, 37, 37);
+  background: rgb(43, 37, 37);
+}
+.cart-button {
+  color: black;
+  background-color: yellow;
+  border-color: yellow;
+  border-radius: 100px;
+  box-sizing: border-box;
+  border: 3px solid yellow;
+  overflow: hidden;
+  padding: 0 6px 0 7px;
+  text-align: end;
+  text-decoration: none;
+}
+
+.But_ {
+  border-color: yellow;
+  background-color: yellow;
+  box-sizing: border-box;
+  margin: 10px;
+  border-radius: 100px;
+}
+.Add {
+  display: flex;
+  justify-content: center;
+  border: 1px dotted black;
+  width: 180px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.Account {
+  background-color: #87d068;
+  font-size: 25px !important;
+  width: 40px;
+  height: 40px;
+  margin: 5px 20px;
+  /* margin: 5px 10px 10px 300px; */
+}
+.Search {
+  padding: 5px;
+  margin: 0px 0px 0px 0px;
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
+}
+input {
+  padding: 5px;
+  margin: 10px;
+  width: 300px;
+}
+
+/* Header2 */
+.Hd2 {
+  display: flex;
+  justify-content: space-around;
+  background-color: #ccc4c4;
+  color: black;
+}
+/*Body*/
+.Carousel {
+  color: #fff;
+  text-align: center;
+  background-color: #364d79;
+  height: 500px;
+}
+.Carousel img {
+  height: 500px;
+  width: 100%;
+}
+
+/*Content*/
+.Content {
+  display: flex;
+  justify-content: space-evenly;
+}
+.Items-content {
+  height: 250px !important;
+  width: auto !important;
+}
+/*Footer*/
+.Footer {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.FLOGO {
+  background-color: #ccc4c4;
+  padding: 10px;
+}
+
+/*Buy Now*/
+
+.address {
+  border: 1px dotted black;
+  width: 700px;
+  height: 100%;
+  padding: 14px 18px;
+  border-radius: 10px;
+}
+
+.payment {
+  border: 1px dotted black;
+  width: 700px;
+  height: 100%;
+  padding: 14px 18px;
+  border-radius: 10px;
+}
+
+.card {
+  padding: 10px 15px;
+  flex-direction: row !important;
+  gap: 10px;
+  border: 1px dotted black !important;
+  border-radius: 8px;
+  /* background-color: #fbd8b4 !important; */
+}
+
+.razorpay {
+  padding: 10px 15px;
+  flex-direction: row;
+  gap: 10px;
+  border: 1px dotted black;
+  border-radius: 8px;
+  /* background-color: #fbd8b4; */
+}
+.cash {
+  padding: 10px 15px;
+  flex-direction: row;
+  border: 1px dotted black;
+  gap: 10px;
+  border-radius: 8px;
+  /* background-color: #fbd8b4; */
+}
+
+.Sumpay {
+  border: 1px dotted black;
+  border-radius: 8px;
+  height: 400px;
+  background-color: ghostwhite;
+}
+
+/*edit*/
+
+:where(.css-dev-only-do-not-override-1htoz2s).ant-collapse
+  .ant-collapse-content {
+  background-color: ghostwhite;
+}
+
+:where(.css-dev-only-do-not-override-1htoz2s).ant-collapse-large
+  > .ant-collapse-item {
+  background-color: ghostwhite;
+}
+
+.LAS {
+  display: flex;
+  justify-content: space-between;
+  border: 1px dotted black;
+  /* margin: 20px; */
+  padding: 25px;
+  border-radius: 20px;
+}
+.Login-Sec {
+  border: 1px dotted black;
+  padding: 25px;
+  margin: 30px 350px;
+  border-radius: 20px;
+}
+.Ypro {
+  /* border: 2px solid black; */
+  border-radius: 20px;
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+}
+.YPpro {
+  border: 1px dotted black;
+  display: flex;
+  justify-content: space-around;
+  width: 350px;
+  margin: 2px;
+  padding: 20px;
+}
+.orders {
+  border: 1px dotted black;
+  display: flex;
+  justify-content: space-evenly;
+  width: 350px;
+  margin: 2px;
+  padding: 40px;
+}
+.Privacy_Policy {
+  background-color: #f1f3f6;
+  margin: 0px 150px;
+  padding: 50px;
+}
+.TermsofUse {
+  background-color: #f1f3f6;
+  margin: 0px 150px;
+  padding: 50px;
+}
+
+.SavedAddresses {
+  border: 1px dotted dimgrey;
+  margin: 5px;
+  padding: 5px;
+  display: grid;
+  grid: 250px / auto auto auto auto auto auto;
+
+  /* justify-content: space-between; */
+}
+
+.Products-list {
+  display: flex;
+  justify-content: space-around;
+}
+.Product {
+  width: 95%;
+  max-height: 100%;
+}
+
+.Day {
+  display: grid;
+  grid: 70px / auto auto auto auto;
+}
+.ant-card .ant-card-body {
+  padding: 20px;
+}
+
+.text-center {
+  text-align: center;
+  width: 100%;
+  padding: 16px;
+}
+.text-icon {
+  font-size: 30px; /* 30px */
+}
+.text-item {
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.Policys-product {
+  width: 100%;
+  height: 150px;
+}
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+  color: black;
+  border-radius: 5px;
+}
+
+.card-color {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: auto;
+  border: 1px solid #999;
+}
+.card-text {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.data-info {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.img-promax {
+  width: 100%;
+}
+.iphonepromax_16-info {
+  border-bottom: 1px solid #ddd;
+  padding: 50px;
+}
+
+.iphonepromax_16 {
+  border: 1px solid #ddd;
+  border-radius: 20px !important;
+  margin: 2px;
+  padding: 20px 20px 0 20px;
+  height: 100%;
+}
+
+.iphonepromax_1-6 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.ant-collapse-expand-icon {
+  margin: auto;
+}
