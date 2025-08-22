@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import store from "./Redux/store.jsx";
 import Buy_Now from "./Components/BuyNow.jsx";
 import Login_Security from "./Components/Login&Security.jsx";
-import NameLogin from "./Components/nameLogin.jsx";
+import NameLogin from "./Components/NameLogin";
 import EmailLogin from "./Components/EmailLogin.jsx";
 import MobileLogin from "./Components/mobileLogin.jsx";
 import PassLogin from "./Components/passLogin.jsx";
