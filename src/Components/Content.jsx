@@ -13,7 +13,9 @@ const Content = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/products`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/products`
+        );
         setProducts(response.data || []);
       } catch (error) {
         console.error("Error fetching products:", error);
