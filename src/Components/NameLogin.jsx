@@ -43,7 +43,7 @@ const NameLogin = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/users/${userId}`,
+        `${process.env.REACT_APP_API_URL}/api/users/${userId}`,
         {
           oldName,
           name: newName,

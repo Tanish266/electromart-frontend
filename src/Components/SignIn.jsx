@@ -29,10 +29,13 @@ const SignIn = () => {
     try {
       const { email, password } = values;
 
-      const response = await axios.post("http://localhost:5000/api/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       console.log("Raw login response:", response.data);
 

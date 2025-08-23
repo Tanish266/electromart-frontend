@@ -39,7 +39,7 @@ const UserOrders = () => {
     if (!userAndToken) return;
     const { user, token } = userAndToken;
 
-    const url = `http://localhost:5000/api/orders/user/${user.id}`;
+    const url = `${process.env.REACT_APP_API_URL}/api/orders/user/${user.id}`;
     try {
       const res = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` },
@@ -80,7 +80,7 @@ const UserOrders = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/orders/cancel/${selectedOrder.id}`,
+        `${process.env.REACT_APP_API_URL}/api/orders/cancel/${selectedOrder.id}`,
         {},
         {
           headers: {

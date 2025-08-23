@@ -13,7 +13,9 @@ const Content = () => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/api/products`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/products`
+        );
         setProducts(response.data || []);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -81,7 +83,7 @@ const Content = () => {
                     className="Items-content"
                     src={
                       product.MainImage
-                        ? `http://localhost:5000/p_image/${product.MainImage}`
+                        ? `${process.env.REACT_APP_API_URL}/p_image/${product.MainImage}`
                         : "/placeholder.png"
                     }
                     alt={product.ProductName}

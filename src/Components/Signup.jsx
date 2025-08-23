@@ -74,7 +74,7 @@ const Signup = () => {
     };
     console.log("Sending user data:", userData);
     try {
-      await axios.post("http://localhost:5000/api/users", userData);
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/users`, userData);
       message.success("Registration successful!");
       navigate("/SignIn");
     } catch (error) {

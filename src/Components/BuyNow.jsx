@@ -46,7 +46,7 @@ const Buy_Now = () => {
         }
 
         const response = await axios.get(
-          `http://localhost:5000/api/saveaddresses/${user.id}`,
+          `${process.env.REACT_APP_API_URL}/api/saveaddresses/${user.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -77,7 +77,7 @@ const Buy_Now = () => {
         throw new Error("Authentication required. Please log in again.");
 
       const response = await axios.post(
-        `http://localhost:5000/api/saveaddresses`,
+        `${process.env.REACT_APP_API_URL}/api/saveaddresses`,
         { user_id: userId, ...values },
         {
           headers: {
@@ -118,7 +118,7 @@ const Buy_Now = () => {
       setLoading(true);
 
       const response = await axios.delete(
-        `http://localhost:5000/api/saveaddresses/${id}`
+        `${process.env.REACT_APP_API_URL}/api/saveaddresses/${id}`
       );
 
       if (response.status === 200) {
@@ -158,31 +158,31 @@ const Buy_Now = () => {
       message.error("Please select a shipping address.");
       return;
     }
-  
+
     const user = JSON.parse(localStorage.getItem("user"));
     const userId = user?.id;
-  
+
     if (!userId) {
       message.error("User not found. Please log in again.");
       return;
     }
-  
+
     const totalPrice = cartData.reduce((acc, item) => {
       const price = item.discountPrice || item.price;
       return acc + price * item.quantity;
     }, 0);
-  
+
     // Find the selected shipping address
     const shippingAddress = savedAddresses.find(
       (addr) => addr.id === selectedAddressId
     );
-  
+
     if (!shippingAddress) {
       message.error("Shipping address not found.");
       console.log("Shipping address is NULL or invalid.");
       return;
     }
-  
+
     const orderStatus = "Order Placed"; // Always "Order Placed" in your example
     const orderData = {
       customerName: user?.name,
@@ -210,26 +210,27 @@ const Buy_Now = () => {
       })),
       userId,
     };
-  
+
     console.log("orderData being sent to the server:", orderData);
-  
+
     const token = localStorage.getItem("token");
-  
+
     // Cash on Delivery (COD) logic
     if (selectedMethod === "cod") {
       Modal.confirm({
         title: "Confirm Your Order",
-        content: "Are you sure you want to place this order with Cash on Delivery?",
+        content:
+          "Are you sure you want to place this order with Cash on Delivery?",
         okText: "Yes, Place Order",
         cancelText: "Cancel",
         onOk: async () => {
           try {
             const res = await axios.post(
-              "http://localhost:5000/api/orders/place",
+              `${process.env.REACT_APP_API_URL}/api/orders/place`,
               orderData,
               { headers: { Authorization: `Bearer ${token}` } }
             );
-  
+
             if (res.data.success) {
               message.success("Order placed successfully with COD.");
               dispatch(clearCart());
@@ -247,7 +248,7 @@ const Buy_Now = () => {
       });
       return;
     }
-  
+
     // Online Payment via Razorpay
     const options = {
       key: "rzp_test_3FYvf0aMRI8oZ0",
@@ -259,11 +260,11 @@ const Buy_Now = () => {
         console.log("✅ Payment success:", response);
         try {
           const res = await axios.post(
-            "http://localhost:5000/api/orders/place",
+            `${process.env.REACT_APP_API_URL}/api/orders/place`,
             orderData,
             { headers: { Authorization: `Bearer ${token}` } }
           );
-  
+
           if (res.data.success) {
             message.success("✅ Order placed successfully after payment.");
             dispatch(clearCart());
@@ -283,7 +284,7 @@ const Buy_Now = () => {
       },
       theme: { color: "#F37254" },
     };
-  
+
     Modal.confirm({
       title: "Confirm Your Order",
       content: "Are you sure you want to place this order with Razorpay?",
@@ -306,7 +307,6 @@ const Buy_Now = () => {
       },
     });
   };
-  
 
   return (
     <>

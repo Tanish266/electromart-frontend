@@ -24,7 +24,7 @@ const AddToCart = () => {
 
     // Update cart quantity in backend
     try {
-      await axios.put("http://localhost:5000/api/update-quantity", {
+      await axios.put(`${process.env.REACT_APP_API_URL}/api/update-quantity`, {
         userId: item.userId,
         productId: item.productId,
         variantColor: item.variantColor,
@@ -42,13 +42,16 @@ const AddToCart = () => {
     if (item.quantity > 1) {
       // Update cart quantity in backend
       try {
-        await axios.put("http://localhost:5000/api/update-quantity", {
-          userId: item.userId,
-          productId: item.productId,
-          variantColor: item.variantColor,
-          variantSize: item.variantSize,
-          quantity: item.quantity - 1,
-        });
+        await axios.put(
+          `${process.env.REACT_APP_API_URL}/api/update-quantity`,
+          {
+            userId: item.userId,
+            productId: item.productId,
+            variantColor: item.variantColor,
+            variantSize: item.variantSize,
+            quantity: item.quantity - 1,
+          }
+        );
 
         dispatch(minusQty({ id: item.productId }));
       } catch (error) {
@@ -67,7 +70,7 @@ const AddToCart = () => {
 
     if (isConfirmed) {
       try {
-        await axios.delete("http://localhost:5000/api/cart/remove", {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/remove`, {
           data: {
             userId: item.userId,
             productId: item.productId,
@@ -103,7 +106,7 @@ const AddToCart = () => {
           cartData.map((item) => (
             <div key={item.productId} className="Cart-item">
               <img
-                src={`http://localhost:5000/p_image/${item.mainImage}`}
+                src={`${process.env.REACT_APP_API_URL}/p_image/${item.mainImage}`}
                 alt={item.productName}
                 className="Items-content"
               />

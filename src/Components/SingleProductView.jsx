@@ -42,7 +42,7 @@ const SingleProductView = () => {
       setError(null);
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/api/products/${id}`
+          `${process.env.REACT_APP_API_URL}/api/products/${id}`
         );
         const parsedProduct = {
           ...data,
@@ -135,7 +135,10 @@ const SingleProductView = () => {
       };
 
       try {
-        await axios.post("http://localhost:5000/api/cart/addcart", cartItem);
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/api/cart/addcart`,
+          cartItem
+        );
         dispatch(
           AddfromCart({ ...cartItem, discountedPrice, Unit: product.Unit })
         );
@@ -166,7 +169,7 @@ const SingleProductView = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:5000/api/update-quantity",
+        `${process.env.REACT_APP_API_URL}/api/update-quantity`,
         {
           userId,
           productId,
@@ -196,7 +199,7 @@ const SingleProductView = () => {
     if (quantity > 1) {
       try {
         const response = await axios.put(
-          "http://localhost:5000/api/update-quantity",
+          `${process.env.REACT_APP_API_URL}/api/update-quantity`,
           {
             userId,
             productId,
@@ -236,7 +239,7 @@ const SingleProductView = () => {
           <div style={{ width: "50%" }}>
             <img
               className="Product"
-              src={`http://localhost:5000/p_image/${
+              src={`${process.env.REACT_APP_API_URL}/p_image/${
                 selectedColor?.image ||
                 selectedStorage?.image ||
                 product.MainImage
@@ -483,7 +486,7 @@ const SingleProductView = () => {
               {product.ExtraImage.map((img, index) => (
                 <div key={index}>
                   <img
-                    src={`http://localhost:5000/p_image/${img}`}
+                    src={`${process.env.REACT_APP_API_URL}/p_image/${img}`}
                     alt={`Extra ${index}`}
                     style={{ width: "100%", height: "auto" }}
                   />
