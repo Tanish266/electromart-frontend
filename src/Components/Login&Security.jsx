@@ -32,7 +32,7 @@ const Login_Security = () => {
     setUserData(storedUser);
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/users/${storedUser.id}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/users/${storedUser.id}`)
       .then((response) => {
         setUserData(response.data);
       })

@@ -74,7 +74,7 @@ const Signup = () => {
     };
     console.log("Sending user data:", userData);
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/users`, userData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/users`, userData);
       message.success("Registration successful!");
       navigate("/SignIn");
     } catch (error) {

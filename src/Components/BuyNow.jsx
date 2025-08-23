@@ -46,7 +46,7 @@ const Buy_Now = () => {
         }
 
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/saveaddresses/${user.id}`,
+          `${import.meta.env.VITE_API_URL}/api/saveaddresses/${user.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -77,7 +77,7 @@ const Buy_Now = () => {
         throw new Error("Authentication required. Please log in again.");
 
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/saveaddresses`,
+        `${import.meta.env.VITE_API_URL}/api/saveaddresses`,
         { user_id: userId, ...values },
         {
           headers: {
@@ -118,7 +118,7 @@ const Buy_Now = () => {
       setLoading(true);
 
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}/api/saveaddresses/${id}`
+        `${import.meta.env.VITE_API_URL}/api/saveaddresses/${id}`
       );
 
       if (response.status === 200) {
@@ -226,7 +226,7 @@ const Buy_Now = () => {
         onOk: async () => {
           try {
             const res = await axios.post(
-              `${process.env.REACT_APP_API_URL}/api/orders/place`,
+              `${import.meta.env.VITE_API_URL}/api/orders/place`,
               orderData,
               { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -260,7 +260,7 @@ const Buy_Now = () => {
         console.log("✅ Payment success:", response);
         try {
           const res = await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/orders/place`,
+            `${import.meta.env.VITE_API_URL}/api/orders/place`,
             orderData,
             { headers: { Authorization: `Bearer ${token}` } }
           );

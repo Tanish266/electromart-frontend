@@ -21,7 +21,7 @@ const AddressLogin = () => {
         }
 
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/saveaddresses/${user.id}`,
+          `${import.meta.env.VITE_API_URL}/api/saveaddresses/${user.id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setSavedAddresses(response.data);
@@ -47,7 +47,7 @@ const AddressLogin = () => {
         throw new Error("Authentication required. Please log in again.");
 
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/saveaddresses`,
+        `${import.meta.env.VITE_API_URL}/api/saveaddresses`,
         { user_id: userId, ...values },
         {
           headers: {
@@ -88,7 +88,7 @@ const AddressLogin = () => {
       setLoading(true);
 
       const response = await axios.delete(
-        `${process.env.REACT_APP_API_URL}/api/saveaddresses/${id}`
+        `${import.meta.env.VITE_API_URL}/api/saveaddresses/${id}`
       );
 
       if (response.status === 200) {

@@ -50,7 +50,7 @@ const EmailLogin = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/users/${userId}`,
+        `${import.meta.env.VITE_API_URL}/api/users/${userId}`,
         {
           oldEmail,
           email: newEmail,

@@ -42,7 +42,7 @@ const SingleProductView = () => {
       setError(null);
       try {
         const { data } = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/products/${id}`
+          `${import.meta.env.VITE_API_URL}/api/products/${id}`
         );
         const parsedProduct = {
           ...data,
@@ -136,7 +136,7 @@ const SingleProductView = () => {
 
       try {
         await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/cart/addcart`,
+          `${import.meta.env.VITE_API_URL}/api/cart/addcart`,
           cartItem
         );
         dispatch(
@@ -169,7 +169,7 @@ const SingleProductView = () => {
 
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/update-quantity`,
+        `${import.meta.env.VITE_API_URL}/api/update-quantity`,
         {
           userId,
           productId,
@@ -199,7 +199,7 @@ const SingleProductView = () => {
     if (quantity > 1) {
       try {
         const response = await axios.put(
-          `${process.env.REACT_APP_API_URL}/api/update-quantity`,
+          `${import.meta.env.VITE_API_URL}/api/update-quantity`,
           {
             userId,
             productId,
@@ -239,7 +239,7 @@ const SingleProductView = () => {
           <div style={{ width: "50%" }}>
             <img
               className="Product"
-              src={`${process.env.REACT_APP_API_URL}/p_image/${
+              src={`${import.meta.env.VITE_API_URL}/p_image/${
                 selectedColor?.image ||
                 selectedStorage?.image ||
                 product.MainImage
@@ -486,7 +486,7 @@ const SingleProductView = () => {
               {product.ExtraImage.map((img, index) => (
                 <div key={index}>
                   <img
-                    src={`${process.env.REACT_APP_API_URL}/p_image/${img}`}
+                    src={`${import.meta.env.VITE_API_URL}/p_image/${img}`}
                     alt={`Extra ${index}`}
                     style={{ width: "100%", height: "auto" }}
                   />

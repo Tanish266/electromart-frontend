@@ -14,7 +14,7 @@ const Content = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/products`
+          `${import.meta.env.VITE_API_URL}/api/products`
         );
         setProducts(response.data || []);
       } catch (error) {
@@ -83,7 +83,9 @@ const Content = () => {
                     className="Items-content"
                     src={
                       product.MainImage
-                        ? `${process.env.REACT_APP_API_URL}/p_image/${product.MainImage}`
+                        ? `${import.meta.env.VITE_API_URL}/p_image/${
+                            product.MainImage
+                          }`
                         : "/placeholder.png"
                     }
                     alt={product.ProductName}

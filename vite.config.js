@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        // target: `${process.env.REACT_APP_API_URL}`,
+        // target: `${import.meta.env.VITE_API_URL}`,
         target: "http://localhost:5000",
         changeOrigin: true,
         secure: false,
@@ -15,5 +15,5 @@ export default defineConfig({
     },
   },
 });
-// target: `${process.env.REACT_APP_API_URL}`,
+// target: `${import.meta.env.VITE_API_URL}`,
 // target: "http://localhost:5000",
