@@ -21,7 +21,6 @@ const SearchPage = () => {
         .catch((err) => console.error(err));
     }
   }, [location.search]);
-  console.log(err);
 
   return (
     <div>
