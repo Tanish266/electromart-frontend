@@ -236,7 +236,7 @@ const SingleProductView = () => {
       <div style={{ margin: "20px" }}>
         <div className="Products-list">
           {/* Left: Image + Cart Actions */}
-          <div style={{ width: "50%" }}>
+          <div className="product-left">
             <img
               className="Product"
               src={`${import.meta.env.VITE_API_URL}/p_image/${
@@ -246,32 +246,23 @@ const SingleProductView = () => {
               }`}
               alt={product?.ProductName || "Product Image"}
             />
-
-            <div style={{ marginTop: "20px" }}>
-              {/* Decrease Quantity */}
+            <div className="cart-actions">
               <Button
                 onClick={() => handleRemoveCart(isInCart)}
                 disabled={!isInCart || isInCart.quantity <= 1}
-                style={{ margin: "5px" }}
               >
                 <MinusOutlined />
               </Button>
-
-              {/* Add to Cart */}
               <Button
                 className="cart-button"
                 onClick={handleAddToCart}
                 disabled={product.Unit <= 0 || !!isInCart}
-                style={{ margin: "5px" }}
               >
                 {isInCart ? `${isInCart.quantity} in cart` : "Add to Cart"}
               </Button>
-
-              {/* Increase Quantity */}
               <Button
                 onClick={() => handleAddCart(isInCart)}
                 disabled={!isInCart || isInCart.quantity >= product.Unit}
-                style={{ margin: "5px" }}
               >
                 <PlusOutlined />
               </Button>
@@ -279,7 +270,7 @@ const SingleProductView = () => {
           </div>
 
           {/* Right: Details */}
-          <div style={{ width: "70%" }}>
+          <div className="product-right">
             <h1>{product.ProductName}</h1>
             <p>
               {product.ProductDescription} | {selectedColor?.name} |{" "}
@@ -302,8 +293,18 @@ const SingleProductView = () => {
               </span>
             </h5>
             <hr />
+
             {/* Features Carousel */}
-            <Carousel infinite={false} dots={false} slidesToShow={4} arrows>
+            <Carousel
+              infinite={false}
+              dots={false}
+              responsive={[
+                { breakpoint: 768, settings: { slidesToShow: 2 } },
+                { breakpoint: 992, settings: { slidesToShow: 3 } },
+              ]}
+              slidesToShow={4}
+              arrows
+            >
               {[
                 { icon: <RetweetOutlined />, text: "7 Days Replacement" },
                 { icon: <CarOutlined />, text: "Free Delivery" },
@@ -337,27 +338,12 @@ const SingleProductView = () => {
                   {product.VariantsColor.map((colorName, index) => (
                     <div
                       key={index}
-                      onClick={() => {
-                        const newImage =
-                          product.ColorImageMap?.[colorName] ||
-                          product.MainImage;
-                        setSelectedColor({
-                          name: colorName,
-                          image: newImage,
-                        });
-                      }}
-                      style={{
-                        padding: "10px",
-                        border:
-                          selectedColor?.name === colorName
-                            ? "2px solid blue"
-                            : "1px solid #ccc",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
+                      className={`variant-option ${
+                        selectedColor?.name === colorName ? "active" : ""
+                      }`}
+                      onClick={() =>
+                        setSelectedColor({ name: colorName, image: newImage })
+                      }
                     >
                       {colorName}
                     </div>
@@ -423,55 +409,15 @@ const SingleProductView = () => {
             <div>
               <h4>About This</h4>
               <ul>
-                <h6
-                  style={{
-                    width: "50%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <li>
-                    {" "}
-                    Product Color : <span>{selectedColor?.name}</span>
-                  </li>
-                </h6>
-                <hr
-                  style={{
-                    width: "50%",
-                  }}
-                />
-                <h6
-                  style={{
-                    width: "50%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <li>
-                    Product Size : <span>{selectedStorage?.name}</span>
-                  </li>
-                </h6>
-                <hr
-                  style={{
-                    width: "50%",
-                  }}
-                />
-                <h6
-                  style={{
-                    width: "50%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <li>
-                    Product Brand : <span>{product.ProductBrand}</span>
-                  </li>
-                </h6>{" "}
-                <hr
-                  style={{
-                    width: "50%",
-                  }}
-                />
+                <li className="about-item">
+                  Product Color: <span>{selectedColor?.name}</span>
+                </li>
+                <li className="about-item">
+                  Product Size: <span>{selectedStorage?.name}</span>
+                </li>
+                <li className="about-item">
+                  Product Brand: <span>{product.ProductBrand}</span>
+                </li>
               </ul>
             </div>
           </div>

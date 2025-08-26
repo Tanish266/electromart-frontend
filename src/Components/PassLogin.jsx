@@ -5,24 +5,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const PassLogin = () => {
-  const [password, setPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState("");
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       try {
         const userData = JSON.parse(storedUser);
-
-        if (userData.password) {
-          setPassword(userData.password);
-        }
-        if (userData.id) {
-          setUserId(userData.id);
-        }
+        if (userData.id) setUserId(userData.id);
       } catch (error) {
         console.error("Error parsing user data:", error);
         localStorage.removeItem("user");
@@ -39,7 +33,6 @@ const PassLogin = () => {
       alert("New passwords do not match.");
       return;
     }
-
     if (!userId) {
       alert("User ID not found. Please log in again.");
       return;
@@ -56,27 +49,23 @@ const PassLogin = () => {
       );
 
       if (response.data.message === "User updated successfully") {
-        alert(
-          `Password changed successfully from ${oldPassword} to: ${newPassword}`
-        );
+        alert("Password changed successfully!");
 
-        // Update localStorage and React state
+        // Update localStorage
         const updatedUser = {
           ...JSON.parse(localStorage.getItem("user")),
           password: newPassword,
         };
         localStorage.setItem("user", JSON.stringify(updatedUser));
 
-        console.log("Updated localStorage:", localStorage.getItem("user"));
-
-        setPassword(newPassword);
-        setNewPassword("");
+        // Reset fields
         setOldPassword("");
-        setConfirmPassword(""); // Clear the input after successful update
+        setNewPassword("");
+        setConfirmPassword("");
       }
     } catch (error) {
-      console.error("Error updating Password:", error);
-      alert(error?.response?.data?.message || "Failed to update Password.");
+      console.error("Error updating password:", error);
+      alert(error?.response?.data?.message || "Failed to update password.");
     } finally {
       setLoading(false);
     }
@@ -84,81 +73,66 @@ const PassLogin = () => {
 
   return (
     <>
-      <>
-        <HeaderComponent />
-      </>
+      <HeaderComponent />
       <center>
         <div className="Login-Sec">
           <Breadcrumb
             separator=">"
             items={[
-              {
-                title: "Home",
-                href: "/",
-              },
-              {
-                title: "Your Account",
-                href: "/Your-Account",
-              },
+              { title: "Home", href: "/" },
+              { title: "Your Account", href: "/Your-Account" },
               {
                 title: "Login & security",
                 href: "/Your-Account/Login_Security",
               },
-              {
-                title: " Change Password",
-              },
+              { title: "Change Password" },
             ]}
           />
           <h1>Change Password</h1>
-          <div style={{ textAlign: "left" }}>
-            <p>
-              Use the form below to change the password for your Electromart
-              account
-            </p>
-          </div>
-          <div style={{ textAlign: "left" }}>
+          <p>
+            Use the form below to change the password for your Electromart
+            account
+          </p>
+
+          <div className="form-group">
             <h4>Current password:</h4>
             <input
               type="password"
-              style={{ width: "250px" }}
               value={oldPassword}
               onChange={(e) => setOldPassword(e.target.value)}
             />
-            <br />
+          </div>
 
+          <div className="form-group">
             <h4>New password:</h4>
             <input
               type="password"
-              style={{ width: "250px" }}
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
             />
+          </div>
 
-            <br />
-
-            <h4>Reenter new password:</h4>
+          <div className="form-group">
+            <h4>Re-enter new password:</h4>
             <input
               type="password"
-              style={{ width: "250px" }}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </div>
-          <br />
-          <div style={{ textAlign: "left" }}>
-            <button
-              className="cart-button"
-              style={{ textAlign: "center" }}
-              onClick={handleSaveChanges}
-              disabled={loading}
-            >
-              {loading ? "Updating..." : "Save changes"}
-            </button>
-          </div>
+
+          <button
+            className="cart-button"
+            onClick={handleSaveChanges}
+            disabled={loading}
+          >
+            {loading ? "Updating..." : "Save changes"}
+          </button>
         </div>
       </center>
       <Footer />
     </>
   );
 };
+
 export default PassLogin;

@@ -5,38 +5,34 @@ const Footer = () => {
   return (
     <>
       <div className="Footer">
-        <div>
-          <ul>Connect with Us</ul>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
-            <li>FaceBook</li>
+        <div className="footer-section">
+          <h3>Connect with Us</h3>
+          <a href="#">
+            <li>Facebook</li>
           </a>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
+          <a href="#">
             <li>Instagram</li>
           </a>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
+          <a href="#">
             <li>Twitter</li>
           </a>
         </div>
-        <div>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
-            <ul>Let Us Help You</ul>
-          </a>
-          <a
-            href="/Your-Account"
-            style={{ textDecoration: "none", color: "black" }}
-          >
+
+        <div className="footer-section">
+          <h3>Let Us Help You</h3>
+          <Link to="/Your-Account">
             <li>Your Account</li>
-          </a>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
+          </Link>
+          <a href="#">
             <li>Returns Centre</li>
           </a>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
+          <a href="#">
             <li>Recalls and Product Safety Alerts</li>
           </a>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
+          <a href="#">
             <li>100% Purchase Protection</li>
           </a>
-          <a href="" style={{ textDecoration: "none", color: "black" }}>
+          <a href="#">
             <li>Help</li>
           </a>
         </div>
@@ -45,7 +41,7 @@ const Footer = () => {
       <div className="FLOGO">
         <center>
           <Link to="/">
-            <img className="Logo" src={logo} />
+            <img className="Logo" src={logo} alt="Logo" />
           </Link>
         </center>
       </div>

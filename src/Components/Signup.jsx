@@ -15,48 +15,6 @@ import logo from "./../assets/logo.png";
 
 const { Option } = Select;
 
-const config = {
-  rules: [
-    {
-      type: "object",
-      required: true,
-      message: "Please select time!",
-    },
-  ],
-};
-
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
 const Signup = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -67,21 +25,21 @@ const Signup = () => {
       email: values.email,
       password: values.password,
       name: values.name,
-      phone: `+${values.prefix} ${values.phone}`, // Fix phone format
+      phone: `+${values.prefix}${values.phone}`, // fixed spacing
       address: values.address,
       gender: values.gender,
       birthDate: values.birthDate ? values.birthDate.format("YYYY-MM-DD") : "",
     };
-    console.log("Sending user data:", userData);
+
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/users`, userData);
-      message.success("Registration successful!");
+      message.success("🎉 Registration successful!");
       navigate("/SignIn");
     } catch (error) {
       console.error("Error details:", error.response?.data || error.message);
       message.error(
         error.response?.data?.message ||
-          "Error registering user. Try again later."
+          "❌ Error registering user. Try again later."
       );
     } finally {
       setLoading(false);
@@ -89,12 +47,8 @@ const Signup = () => {
   };
 
   const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
+    <Form.Item name="prefix" noStyle initialValue="91">
+      <Select style={{ width: 70 }}>
         <Option value="91">+91</Option>
         <Option value="86">+86</Option>
         <Option value="87">+87</Option>
@@ -103,201 +57,190 @@ const Signup = () => {
   );
 
   return (
-    <div style={{ backgroundColor: "#f1f3f6", margin: "0px 250px" }}>
-      <center>
-        <Link to="/">
-          <img className="Logo" style={{ margin: "5px" }} src={logo} />
-        </Link>
-      </center>
-      <hr />
-      <br />
-      <Form
-        {...formItemLayout}
-        form={form}
-        name="register"
-        onFinish={onFinish}
-        initialValues={{
-          residence: [],
-          prefix: "91",
-        }}
+    <div
+      style={{
+        backgroundColor: "#f1f3f6",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "20px",
+      }}
+    >
+      <div
         style={{
-          maxWidth: 600,
+          background: "#fff",
+          padding: "30px",
+          borderRadius: "10px",
+          boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          width: "100%",
+          maxWidth: "600px",
         }}
-        scrollToFirstError
       >
-        <Form.Item
-          name="email"
-          label="E-mail"
-          rules={[
-            {
-              type: "email",
-              message: "The input is not valid E-mail!",
-            },
-            {
-              required: true,
-              message: "Please input your E-mail!",
-            },
-          ]}
+        <center>
+          <Link to="/">
+            <img
+              className="Logo"
+              style={{ marginBottom: "10px", height: "60px" }}
+              src={logo}
+              alt="Logo"
+            />
+          </Link>
+        </center>
+        <hr />
+        <br />
+
+        <Form
+          form={form}
+          name="register"
+          onFinish={onFinish}
+          layout="vertical"
+          scrollToFirstError
         >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          label="Password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-            {
-              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
-              message:
-                "Password must be at least 8 characters long, contain at least one letter and one number.",
-            },
-          ]}
-          hasFeedback
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          name="confirm"
-          label="Confirm Password"
-          dependencies={["password"]}
-          hasFeedback
-          rules={[
-            {
-              required: true,
-              message: "Please confirm your password!",
-            },
-            ({ getFieldValue }) => ({
-              validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
-                  return Promise.resolve();
-                }
-                return Promise.reject(
-                  new Error("The new password that you entered do not match!")
-                );
-              },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          name="name"
-          label="Name"
-          tooltip="What do you want others to call you?"
-          rules={[
-            {
-              required: true,
-              message: "Please input your name!",
-              whitespace: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="phone"
-          label="Phone Number"
-          rules={[
-            {
-              required: true,
-              message: "Please input your phone number!",
-            },
-          ]}
-        >
-          <Input
-            addonBefore={prefixSelector}
-            style={{
-              width: "100%",
-            }}
-          />
-        </Form.Item>
-        <Form.Item
-          name="address"
-          label="Address"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your habitual residence!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="gender"
-          label="Gender"
-          rules={[
-            {
-              required: true,
-              message: "Please select gender!",
-            },
-          ]}
-        >
-          <Select placeholder="select your gender">
-            <Option value="male">Male</Option>
-            <Option value="female">Female</Option>
-            <Option value="other">Other</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item name="birthDate" label="Birth-Date" {...config}>
-          <DatePicker
-            disabledDate={(current) =>
-              current && current > moment().endOf("day")
-            }
-          />
-        </Form.Item>
-        <Form.Item
-          name="Privacy Policy"
-          valuePropName="checked"
-          rules={[
-            {
-              validator: (_, value) =>
-                value
-                  ? Promise.resolve()
-                  : Promise.reject(new Error("Should accept agreement")),
-            },
-          ]}
-          {...tailFormItemLayout}
-        >
-          <Checkbox>
-            I have read the
-            <Link
-              style={{ textDecoration: "none" }}
-              to="Termsofuse"
-              target="_blank"
-            >
-              Terms of Use
-            </Link>
-            and
-            <Link
-              style={{ textDecoration: "none" }}
-              to="PrivacyPolicy"
-              target="_blank"
-            >
-              Privacy Policy.
-            </Link>
-          </Checkbox>
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ width: "100%" }}
-            loading={loading}
+          {/* Email */}
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              { type: "email", message: "Invalid E-mail!" },
+              { required: true, message: "Please input your E-mail!" },
+            ]}
           >
-            Register
-          </Button>
-          <br />
-          <center>
-            or Already Registered? <Link to="/SignIn">Login</Link>
-          </center>
-          <br />
-        </Form.Item>
-      </Form>
+            <Input />
+          </Form.Item>
+
+          {/* Password */}
+          <Form.Item
+            name="password"
+            label="Password"
+            rules={[
+              { required: true, message: "Please input your password!" },
+              {
+                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+                message:
+                  "Password must be 8+ chars with at least one letter & number.",
+              },
+            ]}
+            hasFeedback
+          >
+            <Input.Password />
+          </Form.Item>
+
+          {/* Confirm Password */}
+          <Form.Item
+            name="confirm"
+            label="Confirm Password"
+            dependencies={["password"]}
+            hasFeedback
+            rules={[
+              { required: true, message: "Please confirm your password!" },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue("password") === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error("Passwords do not match!"));
+                },
+              }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+
+          {/* Name */}
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[{ required: true, message: "Please input your name!" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          {/* Phone */}
+          <Form.Item
+            name="phone"
+            label="Phone Number"
+            rules={[
+              { required: true, message: "Please input your phone number!" },
+            ]}
+          >
+            <Input addonBefore={prefixSelector} style={{ width: "100%" }} />
+          </Form.Item>
+
+          {/* Address */}
+          <Form.Item
+            name="address"
+            label="Address"
+            rules={[{ required: true, message: "Please enter your address!" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          {/* Gender */}
+          <Form.Item
+            name="gender"
+            label="Gender"
+            rules={[{ required: true, message: "Please select gender!" }]}
+          >
+            <Select placeholder="Select your gender">
+              <Option value="male">Male</Option>
+              <Option value="female">Female</Option>
+              <Option value="other">Other</Option>
+            </Select>
+          </Form.Item>
+
+          {/* DOB */}
+          <Form.Item
+            name="birthDate"
+            label="Birth-Date"
+            rules={[{ required: true, message: "Please select birth date!" }]}
+          >
+            <DatePicker
+              style={{ width: "100%" }}
+              disabledDate={(current) =>
+                current && current > moment().endOf("day")
+              }
+            />
+          </Form.Item>
+
+          {/* Privacy Policy */}
+          <Form.Item
+            name="privacyPolicy"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) =>
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("You must accept agreement")),
+              },
+            ]}
+          >
+            <Checkbox>
+              I have read the{" "}
+              <Link to="/Termsofuse" target="_blank">
+                Terms of Use
+              </Link>{" "}
+              and{" "}
+              <Link to="/PrivacyPolicy" target="_blank">
+                Privacy Policy
+              </Link>
+            </Checkbox>
+          </Form.Item>
+
+          {/* Submit */}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block loading={loading}>
+              Register
+            </Button>
+            <center style={{ marginTop: "10px" }}>
+              Already Registered? <Link to="/SignIn">Login</Link>
+            </center>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };
+
 export default Signup;

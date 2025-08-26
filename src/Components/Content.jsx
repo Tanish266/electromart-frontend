@@ -44,14 +44,14 @@ const Content = () => {
             style={{
               borderBottom: "1px dotted black",
               borderTop: "1px dotted black",
-              margin: "10px 0 10px 0",
+              margin: "10px 0",
               padding: "10px",
             }}
           >
             {title}
           </h1>
         </center>
-        <div className="Content">
+        <div className="products-grid">
           {filteredProducts.map((product) => {
             let price = product.Price;
 
@@ -67,33 +67,24 @@ const Content = () => {
             return (
               <div
                 key={product.id}
-                style={{
-                  border: "1px dotted black",
-                  margin: "5px",
-                  minWidth: "400px",
-                  padding: "10px",
-                }}
+                className="product-card"
+                onClick={() =>
+                  navigate(`/Single-Product-View/${title}/${product.id}`)
+                }
               >
-                <center
-                  onClick={() =>
-                    navigate(`/Single-Product-View/${title}/${product.id}`)
+                <img
+                  className="product-image"
+                  src={
+                    product.MainImage
+                      ? `${import.meta.env.VITE_API_URL}/p_image/${
+                          product.MainImage
+                        }`
+                      : "/placeholder.png"
                   }
-                >
-                  <img
-                    className="Items-content"
-                    src={
-                      product.MainImage
-                        ? `${import.meta.env.VITE_API_URL}/p_image/${
-                            product.MainImage
-                          }`
-                        : "/placeholder.png"
-                    }
-                    alt={product.ProductName}
-                    style={{ width: "200px", height: "200px" }}
-                  />
-                  <h2>Price: ₹{price}</h2>
-                  <h4>{product.ProductName}</h4>
-                </center>
+                  alt={product.ProductName}
+                />
+                <h2>₹{price}</h2>
+                <h4>{product.ProductName}</h4>
               </div>
             );
           })}

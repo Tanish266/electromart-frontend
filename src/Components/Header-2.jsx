@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Menu } from "antd";
+import { Menu, Drawer, Button } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
+import { MenuOutlined } from "@ant-design/icons";
 
 const Header_2 = () => {
   const [current, setCurrent] = useState("");
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -38,9 +40,7 @@ const Header_2 = () => {
 
     if (scrollSections.includes(key)) {
       if (location.pathname !== "/") {
-        // Navigate to home first
         navigate("/");
-        // Delay to allow content to mount
         setTimeout(() => scrollToSection(key), 100);
       } else {
         scrollToSection(key);
@@ -49,6 +49,7 @@ const Header_2 = () => {
     }
 
     navigate(key);
+    setOpen(false); // close drawer on mobile
   };
 
   const items = scrollSections.map((path) => ({
@@ -57,15 +58,42 @@ const Header_2 = () => {
   }));
 
   return (
-    <div style={{ overflowX: "auto", whiteSpace: "nowrap" }}>
-      <Menu
-        className="Hd2"
-        onClick={onClick}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items}
-      />
-    </div>
+    <>
+      {/* Desktop Menu */}
+      <div className="desktop-menu">
+        <Menu
+          className="Hd2"
+          onClick={onClick}
+          selectedKeys={[current]}
+          mode="horizontal"
+          items={items}
+        />
+      </div>
+
+      {/* Mobile Hamburger */}
+      <div className="mobile-menu">
+        <Button
+          icon={<MenuOutlined />}
+          type="text"
+          onClick={() => setOpen(true)}
+        />
+      </div>
+
+      {/* Drawer for Mobile */}
+      <Drawer
+        title="Categories"
+        placement="left"
+        onClose={() => setOpen(false)}
+        open={open}
+      >
+        <Menu
+          mode="inline"
+          onClick={onClick}
+          selectedKeys={[current]}
+          items={items}
+        />
+      </Drawer>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ import {
   CodeSandboxCircleFilled,
 } from "@ant-design/icons";
 import { message } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const YourProfile = () => {
   const navigate = useNavigate();
@@ -20,56 +20,83 @@ const YourProfile = () => {
     }
   }, [navigate]);
 
+  const menuItems = [
+    {
+      icon: <LockFilled style={{ fontSize: "40px", color: "#1890ff" }} />,
+      title: "Login & Security",
+      desc: "Edit Login, Name, and Mobile number",
+      link: "/Your-Account/Login_Security",
+    },
+    {
+      icon: (
+        <EnvironmentFilled style={{ fontSize: "40px", color: "#52c41a" }} />
+      ),
+      title: "Your Addresses",
+      desc: "Edit addresses for orders and gifts",
+      link: "/Your-Account/AddressLogin",
+    },
+    {
+      icon: (
+        <CodeSandboxCircleFilled
+          style={{ fontSize: "40px", color: "#faad14" }}
+        />
+      ),
+      title: "Your Orders",
+      desc: "View and manage your orders",
+      link: "/Your-Account/UserOrders",
+    },
+  ];
+
   return (
     <>
       <HeaderComponent />
-      <center>
-        <h1>Your Account</h1>
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: "20px",
+          textAlign: "center",
+        }}
+      >
+        <h1 style={{ marginBottom: "30px" }}>Your Account</h1>
 
-        <div className="Ypro">
-          <div className="YPpro">
-            <div>
-              <LockFilled style={{ fontSize: "50px" }} />
-            </div>
-            <div>
-              <a
-                href="/Your-Account/Login_Security"
-                style={{ textDecoration: "none", color: "black" }}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "20px",
+            justifyContent: "center",
+          }}
+        >
+          {menuItems.map((item, index) => (
+            <Link
+              to={item.link}
+              key={index}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <div
+                style={{
+                  background: "#fff",
+                  padding: "20px",
+                  borderRadius: "10px",
+                  boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                  textAlign: "center",
+                  transition: "all 0.3s ease",
+                  height: "100%",
+                }}
+                className="profile-card"
               >
-                <h3>Login & security</h3>
-                <h6>Edit Login , Name , and Mobile number</h6>
-              </a>
-            </div>
-          </div>
-          <div className="YPpro">
-            <div>
-              <EnvironmentFilled style={{ fontSize: "50px" }} />
-            </div>
-            <div>
-              <a
-                href="/Your-Account/AddressLogin"
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <h3>Your Addresses</h3>
-                <h6>Edit addresses for orders and gifts</h6>
-              </a>
-            </div>
-          </div>
-          <div className="orders">
-            <div>
-              <CodeSandboxCircleFilled style={{ fontSize: "50px" }} />
-            </div>
-            <div>
-              <a
-                href="/Your-Account/UserOrders"
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <h3>UserOrders</h3>
-              </a>
-            </div>
-          </div>
+                <div style={{ marginBottom: "10px" }}>{item.icon}</div>
+                <h3 style={{ marginBottom: "8px" }}>{item.title}</h3>
+                {item.desc && <p style={{ color: "gray" }}>{item.desc}</p>}
+              </div>
+            </Link>
+          ))}
         </div>
-      </center>
+      </div>
       <Footer />
     </>
   );

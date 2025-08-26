@@ -11,7 +11,6 @@ import {
   Steps,
 } from "antd";
 import { PlusCircleFilled } from "@ant-design/icons";
-
 import axios from "axios";
 import Header from "./HeaderComponent";
 import Footer from "./Footer";
@@ -39,23 +38,20 @@ const UserOrders = () => {
     if (!userAndToken) return;
     const { user, token } = userAndToken;
 
-    const url = `${import.meta.env.VITE_API_URL}/api/orders/user/${user.id}`;
     try {
+      const url = `${import.meta.env.VITE_API_URL}/api/orders/user/${user.id}`;
       const res = await axios.get(url, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
       if (res.data.success) {
-        const sortedOrders = res.data.orders.sort((a, b) => a.id - b.id);
+        const sortedOrders = res.data.orders.sort((a, b) => b.id - a.id);
         setOrders(sortedOrders);
       } else {
         message.error("Failed to fetch orders.");
       }
     } catch (error) {
-      console.error(
-        "Fetch orders error:",
-        error.response ? error.response.data : error
-      );
+      console.error("Fetch orders error:", error);
       message.error("An error occurred while fetching orders.");
     } finally {
       setLoading(false);
@@ -70,9 +66,8 @@ const UserOrders = () => {
     setSelectedOrder(order);
     setIsModalVisible(true);
   };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+  const handleCancel = () => setIsModalVisible(false);
+
   const cancelOrder = async () => {
     const userAndToken = getUserAndToken();
     if (!userAndToken) return;
@@ -82,17 +77,13 @@ const UserOrders = () => {
       const res = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/orders/cancel/${selectedOrder.id}`,
         {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       if (res.data.success) {
-        message.success("Order has been cancelled.");
-        setOrders((prevOrders) =>
-          prevOrders.map((order) =>
+        message.success("Order cancelled successfully.");
+        setOrders((prev) =>
+          prev.map((order) =>
             order.id === selectedOrder.id
               ? { ...order, order_status: "Cancelled" }
               : order
@@ -100,11 +91,11 @@ const UserOrders = () => {
         );
         setIsModalVisible(false);
       } else {
-        message.error("Failed to cancel the order.");
+        message.error("Failed to cancel order.");
       }
     } catch (error) {
       console.error("Cancel order error:", error);
-      message.error("An error occurred while cancelling the order.");
+      message.error("Error cancelling order.");
     }
   };
 
@@ -144,25 +135,19 @@ const UserOrders = () => {
       key: "id",
     },
     {
-      title: "Subtotal",
-      dataIndex: "subtotal",
-      key: "subtotal",
-      render: (value) => `₹${Number(value || 0).toFixed(2)}`,
-    },
-    {
       title: "Total",
       dataIndex: "total",
       key: "total",
       render: (value) => `₹${Number(value || 0).toFixed(2)}`,
     },
     {
-      title: "Payment Status",
+      title: "Payment",
       dataIndex: "payment_status",
       key: "payment_status",
       render: (status) => <Tag color={getStatusColor(status)}>{status}</Tag>,
     },
     {
-      title: "Order Status",
+      title: "Status",
       dataIndex: "order_status",
       key: "order_status",
       render: (status) => <Tag color={getStatusColor(status)}>{status}</Tag>,
@@ -171,33 +156,27 @@ const UserOrders = () => {
       title: "Placed On",
       dataIndex: "created_at",
       key: "created_at",
-      render: (value) => new Date(value).toLocaleString(),
+      render: (value) => new Date(value).toLocaleDateString(),
     },
     {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <a onClick={() => showModal(record)}>
+        <Button type="link" onClick={() => showModal(record)}>
           View Details <PlusCircleFilled />
-        </a>
+        </Button>
       ),
     },
   ];
 
-  const modalContent = selectedOrder ? (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          padding: "20px",
-        }}
-      >
+  const modalContent = selectedOrder && (
+    <div className="order-modal">
+      <div className="order-steps">
         <Steps
           current={ORDER_STATUS_STEP[selectedOrder.order_status] ?? 0}
           size="small"
-          progressDot
           direction="vertical"
+          progressDot
         >
           {Object.keys(ORDER_STATUS_STEP).map((status) => (
             <Steps.Step
@@ -241,76 +220,57 @@ const UserOrders = () => {
           ))}
         </Steps>
       </div>
-      <p>
-        <strong>Order ID:</strong> {selectedOrder.id}
-      </p>
-      <p>
-        <strong>Payment Status:</strong> {selectedOrder.payment_status}
-      </p>
-      <p>
-        <strong>Order Status:</strong> {selectedOrder.order_status}
-      </p>
-      <p>
-        <strong>Placed On:</strong>{" "}
-        {new Date(selectedOrder.created_at).toLocaleString()}
-      </p>
 
-      <h3>Order Items:</h3>
-      {selectedOrder.orderItems && selectedOrder.orderItems.length > 0 ? (
-        <ul>
-          {selectedOrder.orderItems.map((item, index) => (
-            <li key={index}>
-              <p>
-                <strong>Product:</strong> {item.productName}
-              </p>
-              <p>
-                <strong>Price:</strong> ₹{Number(item.price || 0).toFixed(2)}
-              </p>
+      <div className="order-info">
+        <p>
+          <strong>Order ID:</strong> {selectedOrder.id}
+        </p>
+        <p>
+          <strong>Payment:</strong> {selectedOrder.payment_status}
+        </p>
+        <p>
+          <strong>Status:</strong> {selectedOrder.order_status}
+        </p>
+        <p>
+          <strong>Placed On:</strong>{" "}
+          {new Date(selectedOrder.created_at).toLocaleString()}
+        </p>
 
-              <p>
-                <strong>Quantity:</strong> {item.qty}
-              </p>
-              <p>
-                <strong>Total:</strong> ₹{Number(item.total || 0).toFixed(2)}
-              </p>
-              <hr />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No items found in this order.</p>
-      )}
+        <h4>Items</h4>
+        {selectedOrder.orderItems?.length ? (
+          <ul>
+            {selectedOrder.orderItems.map((item, i) => (
+              <li key={i}>
+                {item.productName} × {item.qty} = ₹
+                {Number(item.total || 0).toFixed(2)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No items found.</p>
+        )}
+      </div>
 
       {!["Cancelled", "Delivered", "Returned"].includes(
         selectedOrder.order_status
       ) && (
-        <Button
-          onClick={cancelOrder}
-          style={{
-            marginTop: 16,
-            backgroundColor: "red",
-            border: "none",
-            color: "white",
-          }}
-        >
+        <Button danger block style={{ marginTop: 16 }} onClick={cancelOrder}>
           Cancel Order
         </Button>
       )}
     </div>
-  ) : null;
+  );
 
   return (
     <>
       <Header />
-      <hr />
-      <div className="p-6">
+      <div className="orders-container">
         <Title level={3} style={{ textAlign: "center" }}>
           My Orders
         </Title>
-        <hr />
         <Card>
           {loading ? (
-            <div className="flex justify-center items-center p-10">
+            <div className="loading">
               <Spin size="large" />
             </div>
           ) : (
@@ -318,8 +278,9 @@ const UserOrders = () => {
               dataSource={orders}
               columns={columns}
               rowKey="id"
-              pagination={{ pageSize: 10 }}
+              pagination={{ pageSize: 8 }}
               locale={{ emptyText: "No orders found" }}
+              scroll={{ x: true }} // ✅ mobile horizontal scroll
             />
           )}
         </Card>
@@ -331,11 +292,12 @@ const UserOrders = () => {
         onCancel={handleCancel}
         footer={null}
         width={800}
+        bodyStyle={{ maxHeight: "70vh", overflowY: "auto" }}
       >
         {modalContent}
       </Modal>
 
-      <Footer className="footer" />
+      <Footer />
     </>
   );
 };
