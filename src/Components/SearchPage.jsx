@@ -70,8 +70,18 @@ const SearchPage = () => {
                 className="search-image"
               />
               {/* Name fix */}
-              <h3>{item.ProductName || item.name || "Unnamed Product"}</h3>
-              {item.Price && <p>₹{item.Price}</p>}
+              <h3>{item.ProductName || item.name}</h3>
+              <p>
+                <strong>Category:</strong> {item.Category}
+              </p>
+              <p>
+                <strong>Brand:</strong> {item.ProductBrand}
+              </p>
+              {item.Price && (
+                <p>
+                  <strong>Price:</strong> ₹{item.Price}
+                </p>
+              )}
             </div>
           ))}
         </div>
