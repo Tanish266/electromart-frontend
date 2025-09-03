@@ -18,10 +18,21 @@ const SearchPage = () => {
     const query = getSearchQuery();
     if (query) {
       setLoading(true);
-      fetch(`${import.meta.env.VITE_API_URL}/api/search?q=${query}`)
-        .then((res) => res.json())
+      const token = localStorage.getItem("token"); // login ke baad save hota hai
+
+      fetch(`${import.meta.env.VITE_API_URL}/api/search?q=${query}`, {
+        headers: {
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Error: ${res.status}`);
+          }
+          return res.json();
+        })
         .then((data) => setSearchResults(data))
-        .catch((err) => console.error(err))
+        .catch((err) => console.error("Search error:", err))
         .finally(() => setLoading(false));
     }
   }, [location.search]);
