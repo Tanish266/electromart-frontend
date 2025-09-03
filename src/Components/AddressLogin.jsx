@@ -7,7 +7,7 @@ import axios from "axios";
 const AddressLogin = () => {
   const [form] = Form.useForm();
   const [savedAddresses, setSavedAddresses] = useState([]);
-  const [loading, setLoading] = useState(false); // ✅ Keep only one loading state
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -56,13 +56,13 @@ const AddressLogin = () => {
           },
         }
       );
-      console.log("added", response);
 
       if (response.status === 201) {
         const updatedAddresses = [...savedAddresses, values];
         setSavedAddresses(updatedAddresses);
         localStorage.setItem("userAddresses", JSON.stringify(updatedAddresses));
         alert("Address saved successfully!");
+        form.resetFields();
       }
     } catch (error) {
       console.error("Error saving address:", error);
@@ -76,28 +76,18 @@ const AddressLogin = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!id) {
-      console.error(
-        "Error: ID is undefined. Check database query & frontend state."
-      );
-      return;
-    }
+    if (!id) return;
 
     try {
-      console.log("Deleting address with ID:", id);
       setLoading(true);
-
       const response = await axios.delete(
         `${import.meta.env.VITE_API_URL}/api/saveaddresses/${id}`
       );
 
       if (response.status === 200) {
-        console.log("Address deleted successfully:", id);
         setSavedAddresses((prev) =>
           prev.filter((address) => address.id !== id)
         );
-      } else {
-        console.error("Failed to delete address:", response.status);
       }
     } catch (error) {
       console.error("Error deleting address:", error);
@@ -119,14 +109,7 @@ const AddressLogin = () => {
         {savedAddresses.length > 0 && (
           <div className="SavedAddresses">
             {savedAddresses.map((address, index) => (
-              <div
-                key={index}
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "10px",
-                  marginBottom: "10px",
-                }}
-              >
+              <div key={index}>
                 <p>
                   <strong>Name:</strong> {address.fullname}
                 </p>
@@ -134,8 +117,8 @@ const AddressLogin = () => {
                   <strong>Mobile:</strong> {address.mobilenumber}
                 </p>
                 <p>
-                  <strong>Address:</strong> {address.addressLine1},
-                  {address.area}, {address.city}, {address.state},
+                  <strong>Address:</strong> {address.addressLine1},{" "}
+                  {address.area}, {address.city}, {address.state},{" "}
                   {address.pincode}
                 </p>
                 <hr />
@@ -144,11 +127,6 @@ const AddressLogin = () => {
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDelete(address.id);
-                  }}
-                  style={{
-                    border: "2px solid red",
-                    backgroundColor: "red",
-                    color: "white",
                   }}
                 >
                   Delete
@@ -167,8 +145,8 @@ const AddressLogin = () => {
             hideRequiredMark
           >
             <h1>Add a new address</h1>
-            <Row gutter={16}>
-              <Col span={12}>
+            <Row gutter={16} justify="center">
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="fullname"
                   label="Full Name"
@@ -179,7 +157,7 @@ const AddressLogin = () => {
                   <Input placeholder="Enter full name" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="mobilenumber"
                   label="Mobile Number"
@@ -198,8 +176,9 @@ const AddressLogin = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={16}>
-              <Col span={12}>
+
+            <Row gutter={16} justify="center">
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="country"
                   label="Country/Region"
@@ -213,7 +192,7 @@ const AddressLogin = () => {
                   <Input placeholder="Enter country/region" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="pincode"
                   label="Pincode"
@@ -229,8 +208,9 @@ const AddressLogin = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={16}>
-              <Col span={24}>
+
+            <Row gutter={16} justify="center">
+              <Col xs={24}>
                 <Form.Item
                   name="addressLine1"
                   label="Flat, House No., Building, Apartment"
@@ -242,8 +222,9 @@ const AddressLogin = () => {
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={16}>
-              <Col span={12}>
+
+            <Row gutter={16} justify="center">
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="area"
                   label="Area, Street, Sector, Village"
@@ -257,18 +238,15 @@ const AddressLogin = () => {
                   <Input placeholder="Enter area/street" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
-                <Form.Item
-                  name="landmark"
-                  label="Landmark"
-                  rules={[{ message: "Please enter a landmark" }]}
-                >
+              <Col xs={24} md={24}>
+                <Form.Item name="landmark" label="Landmark">
                   <Input placeholder="Enter landmark" />
                 </Form.Item>
               </Col>
             </Row>
-            <Row gutter={16}>
-              <Col span={12}>
+
+            <Row gutter={16} justify="center">
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="city"
                   label="Town/City"
@@ -279,7 +257,7 @@ const AddressLogin = () => {
                   <Input placeholder="Enter town/city" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={24}>
                 <Form.Item
                   name="state"
                   label="State"
@@ -291,10 +269,11 @@ const AddressLogin = () => {
                 </Form.Item>
               </Col>
             </Row>
+
             <Button
               type="primary"
               htmlType="submit"
-              style={{ width: "100%" }}
+              className="SaveBtn"
               loading={loading}
             >
               Save Address

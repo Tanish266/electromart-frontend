@@ -111,12 +111,11 @@ const MobileLogin = () => {
             <h5>{phone}</h5>
           </div>
           <br />
-          <div style={{ textAlign: "left" }}>
+          <div style={{ textAlign: "center" }}>
             <div>
               <h4>Mobile number</h4>
               <input
                 type="text"
-                style={{ width: "250px" }}
                 value={newPhone}
                 onChange={(e) => setNewPhone(e.target.value)}
               />
@@ -129,7 +128,7 @@ const MobileLogin = () => {
             <div>
               <button
                 className="cart-button"
-                style={{ width: "250px ", textAlign: "center" }}
+                style={{ width: "70% ", textAlign: "center" }}
                 onClick={handleSaveChanges}
                 disabled={!newPhone.trim() || loading}
               >

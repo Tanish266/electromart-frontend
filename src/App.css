@@ -978,7 +978,9 @@
   }
 }
 
-/* Container for saved addresses */
+/* ===============================
+   SAVED ADDRESSES SECTION
+=================================*/
 .SavedAddresses {
   width: 100%;
   max-width: 800px;
@@ -986,10 +988,13 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Each address card */
 .SavedAddresses > div {
+  width: 100%;
+  max-width: 700px;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px 20px;
@@ -1004,7 +1009,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Address details */
 .SavedAddresses strong {
   color: #222;
 }
@@ -1015,251 +1019,53 @@
   color: #555;
 }
 
-/* Delete button */
 .SavedAddresses button {
   margin-top: 8px;
-  border: none !important;
   background-color: #f5222d !important;
   color: white !important;
-  padding: 5px 12px;
-  border-radius: 5px;
+  padding: 6px 14px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
+  border: none !important;
 }
 
 .SavedAddresses button:hover {
   background-color: #cf1322 !important;
 }
 
-/* Address form section */
+/* ===============================
+   ADDRESS FORM SECTION
+=================================*/
 .Login-Sec {
   background: #fff;
   padding: 25px;
-  max-width: 800px;
-  margin: 30px auto;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  text-align: left;
-}
-
-/* Heading */
-.Login-Sec h1 {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  color: #222;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .SavedAddresses,
-  .Login-Sec {
-    margin: 15px;
-    padding: 15px;
-  }
-
-  .Login-Sec h1 {
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .ant-row {
-    flex-direction: column;
-  }
-
-  .ant-col {
-    width: 100% !important;
-  }
-}
-
-/* Main container */
-.Login-Sec {
-  background: #fff;
-  padding: 25px;
+  width: 100%;
   max-width: 600px;
   margin: 30px auto;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   text-align: left;
+
+  /* ✅ Center for mobile/tablet */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-/* Page heading */
-.Login-Sec h1 {
-  font-size: 22px;
-  font-weight: 600;
-  margin: 15px 0 25px;
-  color: #222;
-  text-align: center;
-}
-
-/* Sub headings */
-.Login-Sec h5 {
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: #333;
-}
-
-.Login-Sec h6 {
-  margin: 0 0 15px;
-  color: #555;
-  font-size: 14px;
-}
-
-/* Input field */
-.Login-Sec input[type="email"] {
-  width: 100%;
-  padding: 10px 14px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.Login-Sec input[type="email"]:focus {
-  border-color: #1677ff;
-  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
-}
-
-/* Button */
-.Login-Sec button {
-  margin-top: 20px;
-  background-color: #1677ff;
-  color: #fff;
-  border: none;
-  padding: 12px 0;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.Login-Sec button:hover {
-  background-color: #125ecc;
-  transform: scale(1.02);
-}
-
-.Login-Sec button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .Login-Sec {
-    margin: 15px;
-    padding: 20px;
-  }
-
-  .Login-Sec h1 {
-    font-size: 18px;
-  }
-}
-
-/* Main container */
-.Login-Sec {
+.Login-Sec1 {
   background: #fff;
   padding: 25px;
+  width: 100%;
   max-width: 600px;
   margin: 30px auto;
   border-radius: 12px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   text-align: left;
+
+  /* ✅ Center for mobile/tablet */
+  display: flex;
+  flex-direction: column;
 }
-
-/* Page heading */
-.Login-Sec h1 {
-  font-size: 22px;
-  font-weight: 600;
-  margin: 15px 0 25px;
-  color: #222;
-  text-align: center;
-}
-
-/* Labels */
-.Login-Sec h4,
-.Login-Sec h5 {
-  margin-bottom: 5px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Input */
-.Login-Sec input[type="text"] {
-  width: 100%;
-  max-width: 400px;
-  padding: 10px 14px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.Login-Sec input[type="text"]:focus {
-  border-color: #1677ff;
-  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
-}
-
-/* Button */
-.Login-Sec button {
-  margin-top: 20px;
-  background-color: #1677ff;
-  color: #fff;
-  border: none;
-  padding: 12px 0;
-  border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  width: 100%;
-  max-width: 400px;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
-
-.Login-Sec button:hover {
-  background-color: #125ecc;
-  transform: scale(1.02);
-}
-
-.Login-Sec button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Info text */
-.Login-Sec p {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #555;
-  line-height: 1.4;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .Login-Sec {
-    margin: 15px;
-    padding: 20px;
-  }
-
-  .Login-Sec h1 {
-    font-size: 18px;
-  }
-}
-
-/* Container */
-.Login-Sec {
-  background: #fff;
-  padding: 25px;
-  max-width: 600px;
-  margin: 30px auto;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-  text-align: left;
-}
-
-/* Heading */
 .Login-Sec h1 {
   font-size: 22px;
   font-weight: 600;
@@ -1268,24 +1074,7 @@
   text-align: center;
 }
 
-/* Sub-heading */
-.Login-Sec h4 {
-  margin: 8px 0;
-  font-weight: 600;
-  color: #333;
-}
-
-/* Paragraphs */
-.Login-Sec p {
-  font-size: 14px;
-  color: #555;
-  line-height: 1.5;
-}
-
-/* Input */
-.Login-Sec input[type="text"],
-.Login-Sec input[type="email"],
-.Login-Sec input[type="password"] {
+.Login-Sec input {
   width: 100%;
   max-width: 400px;
   padding: 10px 14px;
@@ -1301,8 +1090,7 @@
   box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
 }
 
-/* Button */
-.Login-Sec button {
+.Login-Sec .SaveBtn {
   margin-top: 20px;
   background-color: #1677ff;
   color: #fff;
@@ -1314,34 +1102,74 @@
   cursor: pointer;
   width: 100%;
   max-width: 400px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
   transition: background-color 0.3s ease, transform 0.1s ease;
 }
 
-.Login-Sec button:hover {
+.Login-Sec .SaveBtn:hover {
   background-color: #125ecc;
   transform: scale(1.02);
 }
 
-.Login-Sec button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+/* ===============================
+   RESPONSIVE
+=================================*/
+@media (max-width: 992px) {
+  .SavedAddresses > div,
+  .Login-Sec {
+    max-width: 90%;
+  }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
+  .SavedAddresses,
   .Login-Sec {
-    margin: 15px;
+    margin: 5px 10px;
     padding: 20px;
+    max-width: 100%;
+
+    /* ✅ Tablet Center Fix */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .Login-Sec h1 {
     font-size: 18px;
   }
+
+  .ant-row {
+    flex-direction: column;
+  }
+
+  .ant-col {
+    width: 100% !important;
+  }
 }
-/* Input group spacing */
+
+@media (max-width: 480px) {
+  .SavedAddresses > div,
+  .Login-Sec {
+    margin: 5px 10px;
+    padding: 12px;
+    max-width: 100%;
+
+    /* ✅ Mobile Center Fix */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Extra small fixes */
 .form-group {
   margin-bottom: 18px;
 }
+
 /* Privacy Policy Page */
 
 .policy-content {

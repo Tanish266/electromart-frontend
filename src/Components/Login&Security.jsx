@@ -45,7 +45,7 @@ const Login_Security = () => {
     <>
       <HeaderComponent />
       <center>
-        <div className="Login-Sec">
+        <div className="Login-Sec1">
           <Breadcrumb
             separator=">"
             items={[
