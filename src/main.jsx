@@ -20,12 +20,14 @@ import PrivacyPolicy from "./Components/PrivacyPolicy.jsx";
 import Termsofuse from "./Components/Termsofuse.jsx";
 import SingleProductView from "./Components/SingleProductView.jsx";
 import UserOrders from "./Components/UserOrders.jsx";
+import SearchPage from "./Components/SearchPage.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
   { path: "/Signup", element: <Signup /> },
   { path: "/SignIn", element: <SignIn /> },
   { path: "/Buy-Now", element: <Buy_Now /> },
+  { path: "/search", element: <SearchPage /> },
   { path: "/Your-Account", element: <YourProfile /> },
   { path: "/Your-Account/Login_Security", element: <Login_Security /> },
   { path: "/Your-Account/Login_Security/Name-Login", element: <NameLogin /> },
