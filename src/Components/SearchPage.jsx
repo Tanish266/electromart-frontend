@@ -63,10 +63,10 @@ const SearchPage = () => {
                       }`
                     : "/placeholder.png"
                 }
-                alt={item.name}
+                alt={item.ProductName}
                 className="search-image"
               />
-              <h3>{item.name}</h3>
+              <h3>{item.ProductName}</h3>
               {item.Price && <p>₹{item.Price}</p>}
             </div>
           ))}
