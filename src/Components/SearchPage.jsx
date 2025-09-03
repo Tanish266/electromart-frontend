@@ -31,7 +31,10 @@ const SearchPage = () => {
           }
           return res.json();
         })
-        .then((data) => setSearchResults(data))
+        .then((data) => {
+          console.log("🔎 Search API response:", data); // Debugging ke liye
+          setSearchResults(data);
+        })
         .catch((err) => console.error("Search error:", err))
         .finally(() => setLoading(false));
     }
@@ -63,10 +66,11 @@ const SearchPage = () => {
                       }`
                     : "/placeholder.png"
                 }
-                alt={item.ProductName}
+                alt={item.ProductName || item.name || "Product"}
                 className="search-image"
               />
-              <h3>{item.ProductName}</h3>
+              {/* Name fix */}
+              <h3>{item.ProductName || item.name || "Unnamed Product"}</h3>
               {item.Price && <p>₹{item.Price}</p>}
             </div>
           ))}
