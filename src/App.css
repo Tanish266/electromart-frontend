@@ -510,6 +510,8 @@
   cursor: pointer;
   background: #fff;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 550px;
+  min-width: 250px;
 }
 
 .search-card:hover {
