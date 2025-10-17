@@ -249,16 +249,51 @@ const Buy_Now = () => {
       return;
     }
 
-    // Online Payment via Razorpay
+    // Create Razorpay order on backend
+    let orderResponse;
+    try {
+      orderResponse = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/payments/razorpay/order`,
+        { amount: Math.round(totalPrice * 100), currency: "INR" }
+      );
+    } catch (err) {
+      console.error("Error creating Razorpay order:", err);
+      message.error("Failed to initiate payment. Try again.");
+      return;
+    }
+
+    const { order } = orderResponse.data || {};
+    if (!order?.id) {
+      message.error("Payment initialization failed.");
+      return;
+    }
+
+    // Online Payment via Razorpay with order_id
     const options = {
       key: "rzp_test_3FYvf0aMRI8oZ0",
-      amount: totalPrice * 100,
-      currency: "INR",
+      amount: order.amount,
+      currency: order.currency,
+      order_id: order.id,
       name: "ELECTROMART",
       description: "Order Payment",
       handler: async function (response) {
-        console.log("✅ Payment success:", response);
         try {
+          // Verify payment on backend
+          const verifyRes = await axios.post(
+            `${import.meta.env.VITE_API_URL}/api/payments/razorpay/verify`,
+            {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }
+          );
+
+          if (!verifyRes.data?.success) {
+            message.error("Payment verification failed.");
+            return;
+          }
+
+          // Place order after successful verification
           const res = await axios.post(
             `${import.meta.env.VITE_API_URL}/api/orders/place`,
             orderData,
@@ -273,8 +308,8 @@ const Buy_Now = () => {
             message.error("❌ Failed to place order after payment.");
           }
         } catch (err) {
-          console.error("Payment order error:", err);
-          message.error("❌ Error placing order after payment.");
+          console.error("Payment processing error:", err);
+          message.error("❌ Error verifying payment or placing order.");
         }
       },
       prefill: {
